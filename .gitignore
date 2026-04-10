@@ -1,0 +1,8 @@
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# أسرار محلية (لو أضفت ملفات بيئة لاحقاً)
+.env
+.env.*
