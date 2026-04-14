@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+    <script>
+        (function () {
+            try {
+                var t = localStorage.getItem('wedding-theme');
+                if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+                else if (window.matchMedia('(prefers-color-scheme: dark)').matches)
+                    document.documentElement.setAttribute('data-theme', 'dark');
+            } catch (e) {}
+        })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>دعوة زفاف ملكية</title>
@@ -16,6 +26,10 @@
         }
         .bg-soft-gold { background-color: #f4ece1; }
         .card-border { border: 1px solid rgba(212, 175, 55, 0.3); }
+        .line-gold {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.55), transparent);
+        }
         .invitation-style {
     font-family: 'Amiri', serif; /* أو أي خط عربي شيك */
     letter-spacing: 2px;
@@ -124,68 +138,197 @@
         .intro-skip:hover {
             color: #f9f295;
         }
+
+        /* Scroll: fade-in + slight lift */
+        .reveal {
+            opacity: 0;
+            transform: translate3d(0, 2rem, 0);
+            transition:
+                opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: opacity, transform;
+        }
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+            will-change: auto;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .reveal {
+                opacity: 1;
+                transform: none;
+                transition: none;
+                will-change: auto;
+            }
+        }
+
+        /* —— Dark mode —— */
+        [data-theme='dark'] body {
+            background-color: #121110;
+            color: #eceae8;
+        }
+        [data-theme='dark'] .hero-section .hero-bg {
+            opacity: 0.22;
+        }
+        [data-theme='dark'] .hero-line {
+            color: #c9a86a !important;
+        }
+        [data-theme='dark'] .hero-section .divider-hero {
+            background-color: #78716c !important;
+        }
+        [data-theme='dark'] .bg-soft-gold {
+            background-color: #1c1a17 !important;
+            color: #eceae8;
+        }
+        [data-theme='dark'] .countdown-heading {
+            color: #f5f0e6;
+        }
+        [data-theme='dark'] #countdown {
+            color: #d6d3d1;
+        }
+        [data-theme='dark'] #countdown .countdown-card {
+            background-color: #2a2724 !important;
+            color: #fafaf9;
+            border-color: rgba(212, 175, 55, 0.28);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+        }
+        [data-theme='dark'] #countdown .countdown-card .text-sm {
+            color: #a8a29e;
+        }
+        [data-theme='dark'] .when-where-outer {
+            background-color: #151412 !important;
+        }
+        [data-theme='dark'] .when-where-card {
+            background-color: #1f1d1a !important;
+            border-color: rgba(212, 175, 55, 0.22) !important;
+        }
+        [data-theme='dark'] .when-where-card .when-where-tab {
+            background-color: #1f1d1a !important;
+            color: #d4af37;
+        }
+        [data-theme='dark'] .when-where-card h4,
+        [data-theme='dark'] .when-where-card .when-where-body {
+            color: #e7e5e4;
+        }
+        [data-theme='dark'] .when-where-card .text-muted-place {
+            color: #a8a29e !important;
+        }
+        [data-theme='dark'] .when-where-card .line-gold {
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            opacity: 0.85;
+        }
+        [data-theme='dark'] #venue-map-btn {
+            border-color: rgba(212, 175, 55, 0.55);
+            color: #f5e6c8;
+        }
+        [data-theme='dark'] #venue-map-btn:hover {
+            background-color: #d4af37;
+            color: #1c1917;
+            border-color: #d4af37;
+        }
+        [data-theme='dark'] .rsvp-section {
+            background-color: #0c0b0a !important;
+        }
+        [data-theme='dark'] footer.bg-soft-gold {
+            background-color: #1a1816 !important;
+            border-color: rgba(212, 175, 55, 0.12);
+        }
+        [data-theme='dark'] footer .footer-copy {
+            color: #a8a29e !important;
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            inset-inline-end: 1rem;
+            z-index: 110;
+            width: 2.75rem;
+            height: 2.75rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            background: rgba(30, 28, 24, 0.85);
+            color: #f9f295;
+            font-size: 1.15rem;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+            transition: border-color 0.2s, background 0.2s, transform 0.2s;
+        }
+        .theme-toggle:hover {
+            border-color: rgba(212, 175, 55, 0.7);
+            background: rgba(45, 42, 36, 0.95);
+            transform: scale(1.05);
+        }
+        [data-theme='dark'] .theme-toggle {
+            background: rgba(20, 18, 16, 0.92);
+            border-color: rgba(212, 175, 55, 0.45);
+        }
     </style>
 </head>
 <body class="text-stone-800">
+
+    <button type="button" id="theme-toggle" class="theme-toggle" aria-pressed="false" aria-label="تبديل الوضع الداكن" title="وضع داكن">🌙</button>
 
     <div id="wedding-intro" class="fixed inset-0 z-[100] flex flex-col items-center justify-center" role="dialog" aria-label="افتتاحية الدعوة">
         <p class="absolute top-[clamp(1.5rem,6vh,3rem)] text-center text-stone-400 text-sm md:text-base tracking-widest px-4 font-elegant italic">معًا نبدأ القصة</p>
         <div class="intro-pair">
             <div class="intro-figure intro-figure--groom">
-                <img src="micky.jpg" alt="العريس" width="600" height="600">
+                <img src="o.jpg.jpg" alt="العريس" width="600" height="600">
             </div>
             <span class="intro-heart" aria-hidden="true">♥</span>
             <div class="intro-figure intro-figure--bride">
-                <img src="mouse.jpg" alt="العروسة" width="600" height="600">
+                <img src="a (2).jpg" alt="العروسة" width="600" height="600">
             </div>
         </div>
         <button type="button" class="intro-skip" id="intro-skip">skip ←</button>
     </div>
 
-    <section class="relative h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden">
+    <section class="hero-section relative h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden">
         <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=2000" class="w-full h-full object-cover opacity-30" alt="Wedding Background">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=2000" class="hero-bg w-full h-full object-cover opacity-30" alt="Wedding Background">
         </div>
-        
-        <div class="z-10 animate-fade-in-up">
-            <h2 class="text-xl uppercase tracking-[0.3em] mb-4 text-stone-500 font-elegant italic" style="color:#ad9764;">دعوة زفاف</h2>
+
+        <div class="z-10 reveal">
+            <h2 class="hero-line text-xl uppercase tracking-[0.3em] mb-4 text-stone-500 font-elegant italic" style="color:#ad9764;">دعوة زفاف</h2>
             <h1 class="text-6xl md:text-8xl gold-gradient font-elegant mb-6">omar & aya </h1>
-            <p class="text-2xl mb-8 italic" style="color:#ad9764;">نتشرف بدعوتكم لمشاركتنا فرحتنا</p>
-            <div class="w-24 h-[1px] bg-stone-400 mx-auto"></div>
+            <p class="hero-line text-2xl mb-8 italic" style="color:#ad9764;">نتشرف بدعوتكم لمشاركتنا فرحتنا</p>
+            <div class="divider-hero w-24 h-[1px] bg-stone-400 mx-auto"></div>
         </div>
     </section>
 
-    <section class="py-20 bg-soft-gold text-center">
-        <h3 class="text-3xl mb-10 font-elegant">متبقي على اليوم الكبير</h3>
+    <section class="py-20 bg-soft-gold text-center reveal">
+        <h3 class="countdown-heading text-3xl mb-10 font-elegant text-stone-800">متبقي على اليوم الكبير</h3>
         <div id="countdown" class="flex justify-center gap-4 md:gap-10 text-stone-700">
-            <div class="flex flex-col items-center bg-white p-6 rounded-lg shadow-sm card-border min-w-[100px]">
+            <div class="countdown-card flex flex-col items-center bg-white p-6 rounded-lg shadow-sm card-border min-w-[100px]">
                 <span id="days" class="text-4xl font-bold">00</span>
                 <span class="text-sm">أيام</span>
             </div>
-            <div class="flex flex-col items-center bg-white p-6 rounded-lg shadow-sm card-border min-w-[100px]">
+            <div class="countdown-card flex flex-col items-center bg-white p-6 rounded-lg shadow-sm card-border min-w-[100px]">
                 <span id="hours" class="text-4xl font-bold">00</span>
                 <span class="text-sm">ساعة</span>
             </div>
-            <div class="flex flex-col items-center bg-white p-6 rounded-lg shadow-sm card-border min-w-[100px]">
+            <div class="countdown-card flex flex-col items-center bg-white p-6 rounded-lg shadow-sm card-border min-w-[100px]">
                 <span id="minutes" class="text-4xl font-bold">00</span>
                 <span class="text-sm">دقيقة</span>
             </div>
         </div>
     </section>
 
-    <section class="py-20 px-4 bg-white text-center">
-        <div class="max-w-3xl mx-auto border-2 border-stone-100 p-12 relative">
-            <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-white px-4 text-gold-gradient text-3xl italic font-elegant">متى وأين</div>
-            <h4 id="event-date-line" class="text-3xl mb-4">الجمعة، 15 مايو 2026</h4>
-            <p id="event-time-line" class="text-xl mb-8">في تمام الساعة السابعة مساءً</p>
-            <div class="w-12 h-[1px] bg-gold-gradient mx-auto mb-8"></div>
-            <h4 class="text-2xl mb-2">فندق الفورسيزونز</h4>
-            <p class="text-stone-500">القاهرة، مصر</p>
+    <section class="when-where-outer py-20 px-4 bg-white text-center reveal">
+        <div class="when-where-card max-w-3xl mx-auto border-2 border-stone-100 p-12 relative">
+            <div class="when-where-tab absolute -top-4 left-1/2 -translate-x-1/2 bg-white px-4 text-3xl italic font-elegant gold-gradient">متى وأين</div>
+            <h4 id="event-date-line" class="when-where-body text-3xl mb-4 text-stone-800">الجمعة، 15 مايو 2026</h4>
+            <p id="event-time-line" class="when-where-body text-xl mb-8 text-stone-800">في تمام الساعة السابعة مساءً</p>
+            <div class="line-gold w-12 mx-auto mb-8"></div>
+            <h4 class="when-where-body text-2xl mb-2 text-stone-800">فندق الفورسيزونز</h4>
+            <p class="text-muted-place text-stone-500">القاهرة، مصر</p>
             <a id="venue-map-btn" href="#" class="mt-8 inline-block border border-stone-800 px-8 py-3 hover:bg-stone-800 hover:text-white transition duration-300">عرض الموقع على الخريطة</a>
         </div>
     </section>
 
-    <section class="py-20 bg-stone-900 text-white text-center px-4">
+    <section class="rsvp-section py-20 bg-stone-900 text-white text-center px-4 reveal">
         <h3 class="text-4xl font-elegant mb-8 text-[#d4af37]">تأكيد الحضور</h3>
         <p id="rsvp-intro" class="mb-10 text-stone-400">يسعدنا أن نعرف بقدومكم قبل نهاية شهر أبريل</p>
         <div id="rsvp-form-wrap">
@@ -205,10 +348,12 @@
         </div>
     </section>
 
-    <footer class="py-10 bg-soft-gold text-center border-t border-stone-200">
-        <p class="text-sm text-stone-500 font-elegant italic uppercase tracking-widest">&copy; 2026 omar & aya - Made with Love</p>
+    <footer class="py-10 bg-soft-gold text-center border-t border-stone-200 reveal">
+        <p class="footer-copy text-sm text-stone-500 font-elegant italic uppercase tracking-widest">&copy; 2026 omar & aya - Made with Love</p>
     </footer>
 
+    <script src="wedding-theme.js"></script>
+    <script src="wedding-scroll.js"></script>
     <script src="wedding-config.js"></script>
     <script src="wedding-date.js"></script>
     <script src="wedding-map.js"></script>
