@@ -64,6 +64,7 @@ const translations = {
         rsvp_yes: "سأحضر بالتأكيد",
         rsvp_no: "للأسف لن أتمكن من الحضور",
         rsvp_btn: "تأكيد الحضور",
+        rsvp_thank_you: "شكراً لك",
         rsvp_thank_you_msg: "تم استلام تأكيد حضورك مسبقاً من هذا الجهاز. نتطلع لرؤيتك."
     },
     en: {
@@ -88,6 +89,7 @@ const translations = {
         rsvp_yes: "I will attend",
         rsvp_no: "I can't attend",
         rsvp_btn: "Confirm Attendance",
+        rsvp_thank_you: "Thank you",
         rsvp_thank_you_msg: "Thank you for your confirmation. We look forward to seeing you"
     }
 };
