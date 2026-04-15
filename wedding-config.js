@@ -55,7 +55,7 @@ const translations = {
         when_where: "متى وأين",
         date: "الجمعة، 15 مايو 2026",
         time: "في تمام الساعة السابعة مساءً",
-        hotel: "فندق الفورسيزونز",
+        hotel: "قاعة اللوتس",
         city: "القاهرة، مصر",
         map_btn: "عرض الموقع على الخريطة",
         rsvp_title: "تأكيد الحضور",
@@ -63,7 +63,8 @@ const translations = {
         ph_name: "الاسم بالكامل",
         rsvp_yes: "سأحضر بالتأكيد",
         rsvp_no: "للأسف لن أتمكن من الحضور",
-        rsvp_btn: "تأكيد الحضور"
+        rsvp_btn: "تأكيد الحضور",
+        rsvp_thank_you_msg: "تم استلام تأكيد حضورك مسبقاً من هذا الجهاز. نتطلع لرؤيتك."
     },
     en: {
         page_title: "Royal Wedding Invitation",
@@ -78,7 +79,7 @@ const translations = {
         when_where: "When & Where",
         date: "Friday, May 15, 2026",
         time: "At 7:00 PM",
-        hotel: "Four Seasons Hotel",
+        hotel: "Lotus Hall",
         city: "Cairo, Egypt",
         map_btn: "View Map Location",
         rsvp_title: "Confirmation",
@@ -86,7 +87,8 @@ const translations = {
         ph_name: "Full Name",
         rsvp_yes: "I will attend",
         rsvp_no: "I can't attend",
-        rsvp_btn: "Confirm Attendance"
+        rsvp_btn: "Confirm Attendance",
+        rsvp_thank_you_msg: "Thank you for your confirmation. We look forward to seeing you"
     }
 };
 
