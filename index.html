@@ -266,20 +266,22 @@
             border-color: rgba(212, 175, 55, 0.45);
         }
     </style>
-</head>
+</head> 
 <body class="text-stone-800">
 
     <button type="button" id="theme-toggle" class="theme-toggle" aria-pressed="false" aria-label="تبديل الوضع الداكن" title="وضع داكن">🌙</button>
-
+    <button type="button" id="lang-toggle" class="theme-toggle" style="inset-inline-end: 4.5rem;" aria-label="تبديل اللغة">
+        EN
+    </button>
     <div id="wedding-intro" class="fixed inset-0 z-[100] flex flex-col items-center justify-center" role="dialog" aria-label="افتتاحية الدعوة">
-        <p class="absolute top-[clamp(1.5rem,6vh,3rem)] text-center text-stone-400 text-sm md:text-base tracking-widest px-4 font-elegant italic">معًا نبدأ القصة</p>
+        <p data-i18n="intro_sub" class="absolute top-[clamp(1.5rem,6vh,3rem)] text-center text-stone-400 text-sm md:text-base tracking-widest px-4 font-elegant italic">معًا نبدأ القصة</p>
         <div class="intro-pair">
             <div class="intro-figure intro-figure--groom">
-                <img src="o.jpg.jpg" alt="العريس" width="600" height="600">
+                <img src="a (2).jpg" alt="العروسة" width="600" height="600">
             </div>
             <span class="intro-heart" aria-hidden="true">♥</span>
             <div class="intro-figure intro-figure--bride">
-                <img src="a (2).jpg" alt="العروسة" width="600" height="600">
+                <img src="o.jpg.jpg" alt="العريس" width="600" height="600">
             </div>
         </div>
         <button type="button" class="intro-skip" id="intro-skip">skip ←</button>
@@ -291,60 +293,60 @@
         </div>
 
         <div class="z-10 reveal">
-            <h2 class="hero-line text-xl uppercase tracking-[0.3em] mb-4 text-stone-500 font-elegant italic" style="color:#ad9764;">دعوة زفاف</h2>
+            <h2 data-i18n="hero_title" class="hero-line text-xl uppercase tracking-[0.3em] mb-4 text-stone-500 font-elegant italic" style="color:#ad9764;">دعوة زفاف</h2>
             <h1 class="text-6xl md:text-8xl gold-gradient font-elegant mb-6">omar & aya </h1>
-            <p class="hero-line text-2xl mb-8 italic" style="color:#ad9764;">نتشرف بدعوتكم لمشاركتنا فرحتنا</p>
+            <p  data-i18n="hero_msg"  data-i18n-ph="hero_msg" class="hero-line text-2xl mb-8 italic " style="color:#ad9764;">نتشرف بدعوتكم لمشاركتنا فرحتنا</p>
             <div class="divider-hero w-24 h-[1px] bg-stone-400 mx-auto"></div>
         </div>
     </section>
 
     <section class="py-20 bg-soft-gold text-center reveal">
-        <h3 class="countdown-heading text-3xl mb-10 font-elegant text-stone-800">متبقي على اليوم الكبير</h3>
+        <h3  data-i18n="countdown_title" class="countdown-heading text-3xl mb-10 font-elegant text-stone-800">متبقي على اليوم الكبير</h3>
         <div id="countdown" class="flex justify-center gap-4 md:gap-10 text-stone-700">
             <div class="countdown-card flex flex-col items-center bg-white p-6 rounded-lg shadow-sm card-border min-w-[100px]">
                 <span id="days" class="text-4xl font-bold">00</span>
-                <span class="text-sm">أيام</span>
+                <span data-i18n="days_label" class="text-sm">أيام</span>
             </div>
             <div class="countdown-card flex flex-col items-center bg-white p-6 rounded-lg shadow-sm card-border min-w-[100px]">
                 <span id="hours" class="text-4xl font-bold">00</span>
-                <span class="text-sm">ساعة</span>
+                <span data-i18n="hours_label" class="text-sm">ساعة</span>
             </div>
             <div class="countdown-card flex flex-col items-center bg-white p-6 rounded-lg shadow-sm card-border min-w-[100px]">
                 <span id="minutes" class="text-4xl font-bold">00</span>
-                <span class="text-sm">دقيقة</span>
+                <span data-i18n="mins_label" class="text-sm">دقيقة</span>
             </div>
         </div>
     </section>
 
     <section class="when-where-outer py-20 px-4 bg-white text-center reveal">
         <div class="when-where-card max-w-3xl mx-auto border-2 border-stone-100 p-12 relative">
-            <div class="when-where-tab absolute -top-4 left-1/2 -translate-x-1/2 bg-white px-4 text-3xl italic font-elegant gold-gradient">متى وأين</div>
-            <h4 id="event-date-line" class="when-where-body text-3xl mb-4 text-stone-800">الجمعة، 15 مايو 2026</h4>
-            <p id="event-time-line" class="when-where-body text-xl mb-8 text-stone-800">في تمام الساعة السابعة مساءً</p>
+            <div data-i18n="when_where" class="when-where-tab absolute -top-4 left-1/2 -translate-x-1/2 bg-white px-4 text-3xl italic font-elegant gold-gradient">متى وأين</div>
+            <h4 id="event-date-line" data-i18n="date" class="when-where-body text-3xl mb-4 text-stone-800">الجمعة، 15 مايو 2026</h4>
+            <p id="event-time-line" data-i18n="time" class="when-where-body text-xl mb-8 text-stone-800">في تمام الساعة السابعة مساءً</p>
             <div class="line-gold w-12 mx-auto mb-8"></div>
-            <h4 class="when-where-body text-2xl mb-2 text-stone-800">فندق الفورسيزونز</h4>
-            <p class="text-muted-place text-stone-500">القاهرة، مصر</p>
-            <a id="venue-map-btn" href="#" class="mt-8 inline-block border border-stone-800 px-8 py-3 hover:bg-stone-800 hover:text-white transition duration-300">عرض الموقع على الخريطة</a>
+            <h4 data-i18n="hotel" class="when-where-body text-2xl mb-2 text-stone-800">فندق الفورسيزونز</h4>
+            <p data-i18n="city" class="text-muted-place text-stone-500">القاهرة، مصر</p>
+            <a id="venue-map-btn" href="#" data-i18n="map_btn" class="mt-8 inline-block border border-stone-800 px-8 py-3 hover:bg-stone-800 hover:text-white transition duration-300">عرض الموقع على الخريطة</a>
         </div>
     </section>
 
     <section class="rsvp-section py-20 bg-stone-900 text-white text-center px-4 reveal">
-        <h3 class="text-4xl font-elegant mb-8 text-[#d4af37]">تأكيد الحضور</h3>
-        <p id="rsvp-intro" class="mb-10 text-stone-400">يسعدنا أن نعرف بقدومكم قبل نهاية شهر أبريل</p>
+        <h3 data-i18n="rsvp_title" class="text-4xl font-elegant mb-8 text-[#d4af37]">تأكيد الحضور</h3>
+        <p id="rsvp-intro" data-i18n="rsvp_msg" class="mb-10 text-stone-400">يسعدنا أن نعرف بقدومكم قبل نهاية شهر أبريل</p>
         <div id="rsvp-form-wrap">
             <form id="rsvp-form" class="max-w-md mx-auto space-y-4" novalidate>
-                <input id="rsvp-name" name="name" type="text" required autocomplete="name" placeholder="الاسم بالكامل" class="w-full bg-transparent border-b border-stone-700 py-3 px-2 focus:border-[#d4af37] outline-none text-white placeholder:text-stone-500">
+                <input id="rsvp-name" name="name" type="text" required autocomplete="name" data-i18n-ph="ph_name" placeholder="الاسم بالكامل" class="w-full bg-transparent border-b border-stone-700 py-3 px-2 focus:border-[#d4af37] outline-none text-white placeholder:text-stone-500">
                 <select id="rsvp-attendance" name="attendance" class="w-full bg-transparent border-b border-stone-700 py-3 px-2 focus:border-[#d4af37] outline-none text-stone-300">
-                    <option value="yes">سأحضر بالتأكيد</option>
-                    <option value="no">للأسف لن أتمكن من الحضور</option>
+                    <option  value="yes" data-i18n="rsvp_yes">سأحضر بالتأكيد</option>
+                    <option value="no" data-i18n="rsvp_no">للأسف لن أتمكن من الحضور</option>
                 </select>
-                <button type="submit" class="w-full bg-[#d4af37] text-stone-900 font-bold py-4 mt-6 hover:bg-white transition duration-300 disabled:opacity-60 disabled:cursor-not-allowed">تأكيد الحضور</button>
+                <button type="submit" data-i18n="rsvp_btn" class="w-full bg-[#d4af37] text-stone-900 font-bold py-4 mt-6 hover:bg-white transition duration-300 disabled:opacity-60 disabled:cursor-not-allowed">تأكيد الحضور</button>
                 <p id="rsvp-status" class="mt-4 text-sm min-h-[1.25rem] text-stone-500" aria-live="polite"></p>
             </form>
         </div>
         <div id="rsvp-already" class="hidden max-w-md mx-auto rounded-lg border border-stone-700/80 bg-stone-800/40 px-8 py-10" role="status">
-            <p class="text-xl font-elegant text-[#d4af37] mb-2">شكراً لك</p>
-            <p class="text-stone-300 leading-relaxed">تم استلام تأكيد حضورك مسبقاً من هذا الجهاز. نتطلع لرؤيتك.</p>
+            <p data-i18n="rsvp_thank_you" class="text-xl font-elegant text-[#d4af37] mb-2">شكراً لك</p>
+            <p data-i18n="rsvp_thank_you_msg" class="text-stone-300 leading-relaxed">تم استلام تأكيد حضورك مسبقاً من هذا الجهاز. نتطلع لرؤيتك.</p>
         </div>
     </section>
 
