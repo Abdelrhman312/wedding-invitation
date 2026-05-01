@@ -9,9 +9,9 @@
  * timeLineAr: سطر وصف الوقت. اتركه '' ليُبنى تلقائياً من eventDateTime (تقريبي).
  */
 window.WEDDING_CONFIG = {
-    eventDateTime: '2026-04-30T19:00:00+02:00',
+    eventDateTime: '2026-05-30T19:00:00+02:00',
 
-    dateLineAr: 'الخميس، 30 ابريل 2026',
+    dateLineAr: 'الخميس، 30 مايو 2026',
     timeLineAr: 'في تمام الساعة السابعة مساءً',
 
     /**
@@ -112,69 +112,27 @@ function setLanguage(lang) {
         if(translations[lang][key]) el.placeholder = translations[lang][key];
     });
 
-    langToggle.innerText = lang === 'ar' ? 'EN' : 'AR';
-    localStorage.setItem('wedding-lang', lang);
-}
-
-langToggle.addEventListener('click', () => {
-    const current = document.documentElement.getAttribute('lang');
-    setLanguage(current === 'ar' ? 'en' : 'ar');
-});
-
-// 3. إدارة الثيم (Dark/Light)
-const themeToggle = document.getElementById('theme-toggle');
-function setTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('wedding-theme', theme);
-    themeToggle.innerText = theme === 'dark' ? '☀️' : '🌙';
-}
-
-themeToggle.addEventListener('click', () => {
-    const current = document.documentElement.getAttribute('data-theme');
-    setTheme(current === 'dark' ? 'light' : 'dark');
-});
-
-// 4. العداد التنازلي (Countdown)
-function updateCountdown() {
-    const weddingDate = new Date("May 15, 2026 19:00:00").getTime();
-    const now = new Date().getTime();
-    const diff = weddingDate - now;
-
-    if (diff > 0) {
-        document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
-        document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        document.getElementById('minutes').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    if (langToggle) {
+        langToggle.innerText = lang === 'ar' ? 'EN' : 'AR';
     }
+    try {
+        localStorage.setItem('wedding-lang', lang);
+    } catch (e) {}
 }
-setInterval(updateCountdown, 1000);
-updateCountdown();
 
-// 5. التحكم في الافتتاحية (Intro)
-const intro = document.getElementById('wedding-intro');
-const skipBtn = document.getElementById('intro-skip');
-if (intro) {
-    const introTimer = setTimeout(() => intro.classList.add('intro-hide'), 4000);
-    skipBtn.addEventListener('click', () => {
-        clearTimeout(introTimer);
-        intro.classList.add('intro-hide');
+if (langToggle) {
+    langToggle.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('lang');
+        setLanguage(current === 'ar' ? 'en' : 'ar');
     });
 }
 
-// 6. أنيميشن الظهور (Scroll Reveal)
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if(entry.isIntersecting) entry.target.classList.add('is-visible');
-    });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-// 7. تشغيل الإعدادات المحفوظة عند التحميل
+// 3. تشغيل الإعدادات المحفوظة عند التحميل
 window.addEventListener('DOMContentLoaded', () => {
-    const savedLang = localStorage.getItem('wedding-lang') || 'ar';
-    const savedTheme = localStorage.getItem('wedding-theme') || 
-                       (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    
+    let savedLang = 'ar';
+    try {
+        savedLang = localStorage.getItem('wedding-lang') || 'ar';
+    } catch (e) {}
+
     setLanguage(savedLang);
-    setTheme(savedTheme);
 });

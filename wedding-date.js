@@ -15,6 +15,7 @@
     var minutesEl = document.getElementById('minutes');
     var dateLineEl = document.getElementById('event-date-line');
     var timeLineEl = document.getElementById('event-time-line');
+    var lastRendered = { days: null, hours: null, minutes: null };
 
     function pad(n) {
         return String(Math.max(0, n)).padStart(2, '0');
@@ -25,9 +26,12 @@
         var diff = target.getTime() - now;
 
         if (diff <= 0) {
-            if (daysEl) daysEl.textContent = '00';
-            if (hoursEl) hoursEl.textContent = '00';
-            if (minutesEl) minutesEl.textContent = '00';
+            if (daysEl && lastRendered.days !== 0) daysEl.textContent = '00';
+            if (hoursEl && lastRendered.hours !== 0) hoursEl.textContent = '00';
+            if (minutesEl && lastRendered.minutes !== 0) minutesEl.textContent = '00';
+            lastRendered.days = 0;
+            lastRendered.hours = 0;
+            lastRendered.minutes = 0;
             return;
         }
 
@@ -37,9 +41,13 @@
         diff -= hours * 3600000;
         var minutes = Math.floor(diff / 60000);
 
-        if (daysEl) daysEl.textContent = pad(days);
-        if (hoursEl) hoursEl.textContent = pad(hours);
-        if (minutesEl) minutesEl.textContent = pad(minutes);
+        if (daysEl && lastRendered.days !== days) daysEl.textContent = pad(days);
+        if (hoursEl && lastRendered.hours !== hours) hoursEl.textContent = pad(hours);
+        if (minutesEl && lastRendered.minutes !== minutes) minutesEl.textContent = pad(minutes);
+
+        lastRendered.days = days;
+        lastRendered.hours = hours;
+        lastRendered.minutes = minutes;
     }
 
     function setDisplayLines() {
